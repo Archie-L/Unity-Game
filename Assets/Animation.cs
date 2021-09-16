@@ -9,7 +9,7 @@ public class Animation : MonoBehaviour
     public bool playerInAttackRange;
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform player;
-    public LayerMask Player;
+    public LayerMask PlayerLayer;
     [SerializeField] private Animator anim;
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Animation : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerLayer);
 
         if (!playerInAttackRange) ChasePlayer();
         if (playerInAttackRange) AttackPlayer();
@@ -37,5 +37,6 @@ public class Animation : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         anim.SetBool("punch", true);
+        transform.LookAt(player);
     }
 }
